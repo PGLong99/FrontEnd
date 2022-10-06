@@ -1,7 +1,7 @@
-import { Box } from "@mui/material";
+import { Box, Container } from "@mui/material";
 import React from "react";
 import Header from "./Header";
-import Search from "./Search";
+import Search from "./Search/Search";
 
 export default function Banner() {
   return (
@@ -9,15 +9,22 @@ export default function Banner() {
       className="Banner"
       sx={{
         backgroundColor: "#44417A",
-        height: "570px",
-        display: "flex",
-        flexWrap: "wrap",
-        justifyContent: "center",
+        height: "560px",
         backgroundImage: `url(backGround.svg)`,
       }}
     >
-      <Header />
-      <Search />
+      <Container
+        sx={{
+          display: "flex",
+          flexWrap: "wrap",
+          justifyContent: "center",
+          height: "100%",
+          maxWidth: "1150px",
+        }}
+      >
+        <Header />
+        <Search />
+      </Container>
     </Box>
   );
 }

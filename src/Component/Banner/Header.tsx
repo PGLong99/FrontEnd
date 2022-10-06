@@ -1,4 +1,3 @@
-import React from "react";
 import AfitLogo from "../Icon_Logo/AfitLogo";
 import { Box, Button, styled } from "@mui/material";
 import LearningLogo from "../Icon_Logo/LearningLogo";
@@ -16,10 +15,8 @@ export default function Header() {
         alignItems: "center",
         padding: "30px",
         borderRadius: "0 0 20px 20px",
-        margin: "0 10% 0 10%",
         maxHeight: "75px",
         flexGrow: 1,
-        maxWidth: "1440px",
         width: "100%",
       }}
     >
@@ -43,22 +40,6 @@ export default function Header() {
           text="Sign Up"
           sx={{ margin: "0 10px 0 10px" }}
         />
-        {/* <ThemeProvider theme={theme}>
-          <Button
-            color="primary"
-            variant="outlined"
-            sx={{ margin: "0 10px 0 10px" }}
-          >
-            Login
-          </Button>
-          <Button
-            color="primary"
-            variant="contained"
-            sx={{ margin: "0 10px 0 10px" }}
-          >
-            Sign Up
-          </Button>
-        </ThemeProvider> */}
       </Box>
     </Box>
   );

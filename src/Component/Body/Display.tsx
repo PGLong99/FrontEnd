@@ -4,8 +4,8 @@ import GiftIcon from "../Icon_Logo/GiftIcon";
 import RocketIcon from "../Icon_Logo/RocketIcon";
 import GraduationCapIcon from "../Icon_Logo/GraduationCapIcon";
 import WhyUs from "./WhyUs";
-import CustomColorButton from "../CustomButton/CustomColorButton";
-import CoursesList from "./CoursesList";
+import CoursesList from "./Courses/CoursesList";
+import { Container } from "@mui/system";
 
 export default function Display() {
   const dataWhyUs = [
@@ -31,7 +31,7 @@ export default function Display() {
     },
   ];
   return (
-    <Box sx={{ padding: "0 10% 0 10%", marginTop: "50px" }}>
+    <Container sx={{ maxWidth: "1150px", marginTop: "50px" }}>
       <Box sx={{ flexGrow: 1 }}>
         <Grid container columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
           {dataWhyUs.map((item) => (
@@ -46,6 +46,6 @@ export default function Display() {
       <Box>
         <CoursesList coursesName={"Popular Courses"} />
       </Box>
-    </Box>
+    </Container>
   );
 }
