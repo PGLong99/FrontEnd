@@ -1,19 +1,12 @@
 import React from "react";
-import AfitLogo from "../AfitLogo";
-import LearningLogo from "../LearningLogo";
+import AfitLogo from "../Icon_Logo/AfitLogo";
 import { Box, Button, styled } from "@mui/material";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
+import LearningLogo from "../Icon_Logo/LearningLogo";
+import CustomColorButton from "../CustomButton/CustomColorButton";
 
 export default function Header() {
   const CustomButton = styled(Button)({
     color: "#000000",
-  });
-  const theme = createTheme({
-    palette: {
-      primary: {
-        main: "#44417A",
-      },
-    },
   });
   return (
     <Box
@@ -38,7 +31,19 @@ export default function Header() {
         <CustomButton variant="text">Source</CustomButton>
         <CustomButton variant="text">Blog</CustomButton>
         <CustomButton variant="text">Contact</CustomButton>
-        <ThemeProvider theme={theme}>
+        <CustomColorButton
+          variant="outlined"
+          color="#44417A"
+          text="Login"
+          sx={{ margin: "0 10px 0 10px" }}
+        />
+        <CustomColorButton
+          variant="contained"
+          color="#44417A"
+          text="Sign Up"
+          sx={{ margin: "0 10px 0 10px" }}
+        />
+        {/* <ThemeProvider theme={theme}>
           <Button
             color="primary"
             variant="outlined"
@@ -51,9 +56,9 @@ export default function Header() {
             variant="contained"
             sx={{ margin: "0 10px 0 10px" }}
           >
-            Login
+            Sign Up
           </Button>
-        </ThemeProvider>
+        </ThemeProvider> */}
       </Box>
     </Box>
   );

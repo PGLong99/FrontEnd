@@ -13,7 +13,7 @@ export default function Banner() {
         display: "flex",
         flexWrap: "wrap",
         justifyContent: "center",
-        backgroundImage: `url(pattern.svg)`,
+        backgroundImage: `url(backGround.svg)`,
       }}
     >
       <Header />
