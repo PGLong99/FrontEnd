@@ -1,7 +1,7 @@
 import React from "react";
 import AfitLogo from "../AfitLogo";
 import LearningLogo from "../LearningLogo";
-import { Button, styled } from "@mui/material";
+import { Box, Button, styled } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 export default function Header() {
@@ -9,43 +9,52 @@ export default function Header() {
     color: "#000000",
   });
   const theme = createTheme({
-  palette: {
-    primary: {
-      main: "#44417A",
-    },   
-  },
-});
+    palette: {
+      primary: {
+        main: "#44417A",
+      },
+    },
+  });
   return (
-    <div
-      style={{
+    <Box
+      sx={{
         backgroundColor: "white",
         display: "flex",
-        height: "75px",
         alignItems: "center",
-        padding: "",
+        padding: "30px",
+        borderRadius: "0 0 20px 20px",
+        margin: "0 10% 0 10%",
+        maxHeight: "75px",
+        flexGrow: 1,
+        maxWidth: "1440px",
+        width: "100%",
       }}
     >
       <AfitLogo />
       <LearningLogo />
-      <div style={{ display: "inline-block", marginLeft: "20%" }}>
+      <Box sx={{ textAlign: "right", flexGrow: 1 }}>
         <CustomButton variant="text">Home</CustomButton>
         <CustomButton variant="text">About</CustomButton>
         <CustomButton variant="text">Source</CustomButton>
         <CustomButton variant="text">Blog</CustomButton>
         <CustomButton variant="text">Contact</CustomButton>
         <ThemeProvider theme={theme}>
-          <Button color="primary" variant="outlined" sx={{ padding: "6px 8px" }}>
+          <Button
+            color="primary"
+            variant="outlined"
+            sx={{ margin: "0 10px 0 10px" }}
+          >
             Login
           </Button>
           <Button
             color="primary"
             variant="contained"
-            sx={{ padding: "6px 8px" }}
+            sx={{ margin: "0 10px 0 10px" }}
           >
             Login
           </Button>
         </ThemeProvider>
-      </div>
-    </div>
+      </Box>
+    </Box>
   );
 }

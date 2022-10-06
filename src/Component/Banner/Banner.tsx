@@ -1,16 +1,23 @@
+import { Box } from "@mui/material";
 import React from "react";
 import Header from "./Header";
+import Search from "./Search";
 
 export default function Banner() {
   return (
-    <div
-      style={{
+    <Box
+      className="Banner"
+      sx={{
         backgroundColor: "#44417A",
-        height: "560px",
-        padding: "0 145px 0 145px",
+        height: "570px",
+        display: "flex",
+        flexWrap: "wrap",
+        justifyContent: "center",
+        backgroundImage: `url(pattern.svg)`,
       }}
     >
       <Header />
-    </div>
+      <Search />
+    </Box>
   );
 }
