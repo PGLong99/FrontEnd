@@ -1,24 +1,23 @@
 import { Box, Grid, Typography } from "@mui/material";
-import React from "react";
 import CustomColorButton from "../../CustomButton/CustomColorButton";
-import Courses from "./Courses";
+import Courses, { ICourses } from "./Courses";
 
 interface propsCourses {
   coursesName: string;
-  // courses: [index: Courses];
+  courses: ICourses[];
 }
-interface Courses {
-  viewNumber: number;
-  rateNumber: number;
-  tittle: string;
-  tag: [index: number];
-  star: number;
-  learning: string;
-}
+
 export default function CoursesList(props: propsCourses) {
   return (
     <Box>
-      <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          marginTop: "20px",
+          marginBottom: "20px",
+        }}
+      >
         <Typography variant="h6" gutterBottom>
           {props.coursesName}
         </Typography>
@@ -30,10 +29,9 @@ export default function CoursesList(props: propsCourses) {
         />
       </Box>
       <Grid container columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-        <Courses />
-        <Courses />
-        <Courses />
-        <Courses />
+        {props.courses.map((item) => (
+          <Courses courses={item} />
+        ))}
       </Grid>
     </Box>
   );

@@ -1,4 +1,5 @@
 import {
+  Box,
   Card,
   CardActionArea,
   CardContent,
@@ -7,10 +8,22 @@ import {
   styled,
   Typography,
 } from "@mui/material";
-import PermIdentityIcon from "@mui/icons-material/PermIdentity";
 import Learning from "./Learning";
+import Rate from "./Rate";
 
-export default function Courses() {
+export interface ICourses {
+  viewNumber: string;
+  rateNumber: string;
+  tittle: string;
+  tag: string[];
+  star: number;
+  learingState: string;
+  image: string;
+}
+interface CoursesProps {
+  courses: ICourses;
+}
+export default function Courses({ courses }: CoursesProps) {
   const TypographyTittle = styled(Typography)({
     fontStyle: "normal",
     fontWeight: 500,
@@ -26,19 +39,24 @@ export default function Courses() {
     color: "#97a5ac",
   });
   return (
-    <Grid item xs={6} md={3} sx={{ maxWidth: "265px", padding: "10px" }}>
+    <Grid item xs={6} md={3}>
       <Card sx={{ maxWidth: 345 }}>
         <CardActionArea>
-          <CardMedia component="img" image="image.png" alt="green iguana" />
-          <Learning state="DONE" viewNumber="200k" />
+          <Box sx={{ position: "relative" }}>
+            <CardMedia component="img" image="image.png" alt="green iguana" />
+            <Learning
+              state={courses.learingState}
+              viewNumber={courses.viewNumber}
+            />
+            <Rate rateNumber={courses.rateNumber} rateStar={courses.star} />
+          </Box>
           <CardContent>
             <TypographyTittle className="coursesTittle">
-              2020 Complete Python Bootcamp From Zero to Hero...
+              {courses.tittle}
             </TypographyTittle>
-            <TypographyTag className="coursesTag">
-              #Onboarding training
-            </TypographyTag>
-            <TypographyTag className="coursesTag">#Basic</TypographyTag>
+            {courses.tag.map((item) => (
+              <TypographyTag className="coursesTag">{item}</TypographyTag>
+            ))}
           </CardContent>
         </CardActionArea>
       </Card>
