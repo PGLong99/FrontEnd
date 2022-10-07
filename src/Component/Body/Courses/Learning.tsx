@@ -35,6 +35,7 @@ export default function Learning({ state, viewNumber }: propsLearning) {
           alignItems: "center",
           fontWeight: 700,
           fontSize: "13px",
+          padding: "5px",
         }}
       >
         {state}

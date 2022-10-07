@@ -1,25 +1,22 @@
 import { Box, Container } from "@mui/material";
-import Business from "./Business";
-import Categories from "./Categories";
+import React from "react";
+import FootLeft from "./FootLeft";
 
-export default function Info() {
+export default function Footer() {
   return (
     <Box
       sx={{
-        backgroundImage: `url(backGroundInfo.svg)`,
-        marginBottom: "50px",
+        backgroundColor: "#44417A",
       }}
     >
       <Container
         sx={{
           maxWidth: "1150px",
-          marginTop: "50px",
           display: "flex",
           paddingTop: "20px",
         }}
       >
-        <Categories />
-        <Business />
+        <FootLeft />
       </Container>
     </Box>
   );
