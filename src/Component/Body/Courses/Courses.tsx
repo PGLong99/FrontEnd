@@ -40,8 +40,8 @@ export default function Courses({ courses }: CoursesProps) {
   });
   return (
     <Grid item xs={6} md={3}>
-      <Card sx={{ maxWidth: 345 }}>
-        <CardActionArea>
+      <Card sx={{ maxWidth: 345, height: "100%" }}>
+        <CardActionArea sx={{ height: "100%" }}>
           <Box sx={{ position: "relative" }}>
             <CardMedia component="img" image="image.png" alt="green iguana" />
             <Learning
@@ -51,7 +51,15 @@ export default function Courses({ courses }: CoursesProps) {
             <Rate rateNumber={courses.rateNumber} rateStar={courses.star} />
           </Box>
           <CardContent>
-            <TypographyTittle className="coursesTittle">
+            <TypographyTittle
+              className="coursesTittle"
+              sx={{
+                display: "-webkit-box",
+                WebkitBoxOrient: "vertical",
+                overflow: "hidden",
+                WebkitLineClamp: 2,
+              }}
+            >
               {courses.tittle}
             </TypographyTittle>
             {courses.tag.map((item) => (

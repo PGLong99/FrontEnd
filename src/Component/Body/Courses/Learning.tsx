@@ -27,13 +27,14 @@ export default function Learning({ state, viewNumber }: propsLearning) {
     >
       <Box
         sx={{
-          width: "40px",
           height: "24px",
           backgroundColor: color,
           color: fontColor,
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
+          fontWeight: 700,
+          fontSize: "13px",
         }}
       >
         {state}
