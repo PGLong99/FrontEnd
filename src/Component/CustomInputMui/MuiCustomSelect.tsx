@@ -39,7 +39,7 @@ const StyledButton = styled("button")(
   min-height: calc(1.5em + 22px);
   width: 100%;
   padding: 12px;
-  border-radius: 12px;
+  border-radius: 3px;
   text-align: left;
   line-height: 1.5;
   background: ${theme.palette.mode === "dark" ? grey[900] : "#fff"};
@@ -81,7 +81,7 @@ const StyledListbox = styled("ul")(
   padding: 6px;
   margin: 12px 0;
   width: 100%;
-  border-radius: 12px;
+  border-radius: 3px;
   overflow: auto;
   outline: 0px;
   background: ${theme.palette.mode === "dark" ? grey[900] : "#fff"};
@@ -97,7 +97,7 @@ const StyledOption = styled(OptionUnstyled)(
   ({ theme }) => `
   list-style: none;
   padding: 8px;
-  border-radius: 8px;
+  border-radius: 3px;
   cursor: default;
 
   &:last-of-type {

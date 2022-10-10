@@ -12,20 +12,23 @@ import LearningLogo from "../Icon_Logo/LearningLogo";
 import CustomColorButton from "../CustomButton/CustomColorButton";
 import React, { useState } from "react";
 import MenuIcon from "@mui/icons-material/Menu";
+import ModalSignUp from "./Modal/ModalSignUp";
 
 export default function Header() {
+  const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
+  const [openSignUp, setOpenSignUp] = useState(false);
+  const handleOpenSignUp = () => setOpenSignUp(true);
   const CustomButton = styled(Button)({
     color: "#000000",
   });
   const pages = ["HOME", "ABOUT", "COURSES", "CONTACT"];
-  const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
+
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
   };
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
   };
-
   return (
     <Box
       sx={{
@@ -48,11 +51,9 @@ export default function Header() {
           display: { xs: "none", md: "block" },
         }}
       >
-        <CustomButton variant="text">Home</CustomButton>
-        <CustomButton variant="text">About</CustomButton>
-        <CustomButton variant="text">Source</CustomButton>
-        <CustomButton variant="text">Blog</CustomButton>
-        <CustomButton variant="text">Contact</CustomButton>
+        {pages.map((page) => (
+          <CustomButton variant="text">{page}</CustomButton>
+        ))}
         <CustomColorButton
           variant="outlined"
           color="#44417A"
@@ -64,6 +65,7 @@ export default function Header() {
           color="#44417A"
           text="Sign Up"
           sx={{ margin: "0 10px 0 10px" }}
+          onClick={handleOpenSignUp}
         />
       </Box>
 
@@ -108,8 +110,15 @@ export default function Header() {
               <Typography textAlign="center">{page}</Typography>
             </MenuItem>
           ))}
+          <MenuItem onClick={handleCloseNavMenu}>
+            <Typography textAlign="center">SIGN UP</Typography>
+          </MenuItem>
+          <MenuItem onClick={handleCloseNavMenu}>
+            <Typography textAlign="center">LOGIN</Typography>
+          </MenuItem>
         </Menu>
       </Box>
+      <ModalSignUp open={openSignUp} setOpen={setOpenSignUp} />
     </Box>
   );
 }
