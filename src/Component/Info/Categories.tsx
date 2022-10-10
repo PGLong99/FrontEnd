@@ -27,8 +27,8 @@ export default function Categories() {
         Top Categories
       </Typography>
       <Grid container spacing={4}>
-        {dataCategory.map((item) => (
-          <Category Text={item} />
+        {dataCategory.map((item, index) => (
+          <Category Text={item} key={index} />
         ))}
       </Grid>
     </Box>

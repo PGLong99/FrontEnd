@@ -1,12 +1,31 @@
 import AfitLogo from "../Icon_Logo/AfitLogo";
-import { Box, Button, styled } from "@mui/material";
+import {
+  Box,
+  Button,
+  IconButton,
+  Menu,
+  MenuItem,
+  styled,
+  Typography,
+} from "@mui/material";
 import LearningLogo from "../Icon_Logo/LearningLogo";
 import CustomColorButton from "../CustomButton/CustomColorButton";
+import React, { useState } from "react";
+import MenuIcon from "@mui/icons-material/Menu";
 
 export default function Header() {
   const CustomButton = styled(Button)({
     color: "#000000",
   });
+  const pages = ["HOME", "ABOUT", "COURSES", "CONTACT"];
+  const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
+  const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorElNav(event.currentTarget);
+  };
+  const handleCloseNavMenu = () => {
+    setAnchorElNav(null);
+  };
+
   return (
     <Box
       sx={{
@@ -22,7 +41,13 @@ export default function Header() {
     >
       <AfitLogo />
       <LearningLogo />
-      <Box sx={{ textAlign: "right", flexGrow: 1 }}>
+      <Box
+        sx={{
+          textAlign: "right",
+          flexGrow: 1,
+          display: { xs: "none", md: "block" },
+        }}
+      >
         <CustomButton variant="text">Home</CustomButton>
         <CustomButton variant="text">About</CustomButton>
         <CustomButton variant="text">Source</CustomButton>
@@ -40,6 +65,50 @@ export default function Header() {
           text="Sign Up"
           sx={{ margin: "0 10px 0 10px" }}
         />
+      </Box>
+
+      {/* Reponsive */}
+      <Box
+        sx={{
+          textAlign: "right",
+          flexGrow: 1,
+          display: { xs: "block", md: "none" },
+        }}
+      >
+        <IconButton
+          size="large"
+          aria-label="account of current user"
+          aria-controls="menu-appbar"
+          aria-haspopup="true"
+          onClick={handleOpenNavMenu}
+          color="inherit"
+        >
+          <MenuIcon />
+        </IconButton>
+        <Menu
+          id="menu-appbar"
+          anchorEl={anchorElNav}
+          anchorOrigin={{
+            vertical: "bottom",
+            horizontal: "left",
+          }}
+          keepMounted
+          transformOrigin={{
+            vertical: "top",
+            horizontal: "left",
+          }}
+          open={Boolean(anchorElNav)}
+          onClose={handleCloseNavMenu}
+          sx={{
+            display: { xs: "block", md: "none" },
+          }}
+        >
+          {pages.map((page) => (
+            <MenuItem key={page} onClick={handleCloseNavMenu}>
+              <Typography textAlign="center">{page}</Typography>
+            </MenuItem>
+          ))}
+        </Menu>
       </Box>
     </Box>
   );

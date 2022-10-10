@@ -160,17 +160,22 @@ export default function Display() {
     <Container sx={{ maxWidth: "1150px", marginTop: "50px" }}>
       <Box sx={{ flexGrow: 1 }}>
         <Grid container columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-          {dataWhyUs.map((item) => (
+          {dataWhyUs.map((item, index) => (
             <WhyUs
               icon={item.icon}
               tittle={item.tittle}
               subTittle={item.subTittle}
+              key={index}
             ></WhyUs>
           ))}
         </Grid>
       </Box>
-      {dataCoursesList.map((item) => (
-        <CoursesList coursesName={item.coursesName} courses={item.courses} />
+      {dataCoursesList.map((item, index) => (
+        <CoursesList
+          coursesName={item.coursesName}
+          courses={item.courses}
+          key={index}
+        />
       ))}
     </Container>
   );

@@ -29,8 +29,8 @@ export default function CoursesList(props: propsCourses) {
         />
       </Box>
       <Grid container spacing={{ xs: 1, sm: 2, md: 3 }}>
-        {props.courses.map((item) => (
-          <Courses courses={item} />
+        {props.courses.map((item, index) => (
+          <Courses courses={item} key={index} />
         ))}
       </Grid>
     </Box>

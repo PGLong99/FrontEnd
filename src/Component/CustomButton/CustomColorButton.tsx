@@ -5,7 +5,7 @@ import { Button } from "@mui/material";
 interface propsCustomButton {
   color: string;
   variant: "text" | "outlined" | "contained";
-  sx: any;
+  sx?: any;
   text: string;
 }
 export default function CustomColorButton(props: propsCustomButton) {

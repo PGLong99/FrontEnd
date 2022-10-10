@@ -22,11 +22,11 @@ export default function Rate({ rateNumber, rateStar }: propsRate) {
       <p className="flex-item" style={{ color: "#F3AA1B", marginRight: "5px" }}>
         {rateStar.toFixed(1)}
       </p>
-      {Array.from(Array(rateStar), (e) => {
-        return <StarIcon />;
+      {Array.from(Array(rateStar), (item, index) => {
+        return <StarIcon key={index} />;
       })}
-      {Array.from(Array(5 - rateStar), (e) => {
-        return <StarOulineIcon />;
+      {Array.from(Array(5 - rateStar), (item, index) => {
+        return <StarOulineIcon key={index} />;
       })}
       <p style={{ color: "#F3AA1B", marginLeft: "5px" }}>(10k)</p>
     </Box>

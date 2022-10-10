@@ -62,8 +62,10 @@ export default function Courses({ courses }: CoursesProps) {
             >
               {courses.tittle}
             </TypographyTittle>
-            {courses.tag.map((item) => (
-              <TypographyTag className="coursesTag">{item}</TypographyTag>
+            {courses.tag.map((item, index) => (
+              <TypographyTag className="coursesTag" key={index}>
+                {item}
+              </TypographyTag>
             ))}
           </CardContent>
         </CardActionArea>

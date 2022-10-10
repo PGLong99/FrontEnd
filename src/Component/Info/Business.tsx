@@ -49,8 +49,8 @@ export default function Business() {
         text="Get AFIT for Business"
       />
       <Grid container spacing={4} sx={{ marginTop: "10px" }}>
-        {listLogo.map((item) => (
-          <Grid item md={4}>
+        {listLogo.map((item, index) => (
+          <Grid item md={4} key={index}>
             {item}
           </Grid>
         ))}

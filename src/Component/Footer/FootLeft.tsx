@@ -38,8 +38,8 @@ export default function FootLeft() {
           answers to your questions.
         </Typography>
         <Grid container spacing={{ xs: 1, sm: 2, md: 3 }}>
-          {linkData.map((item) => (
-            <Link text={item} />
+          {linkData.map((item, index) => (
+            <Link text={item} key={index} />
           ))}
         </Grid>
       </Box>

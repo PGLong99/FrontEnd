@@ -1,5 +1,6 @@
 import { Box, Container } from "@mui/material";
 import React from "react";
+import Copyright from "./CopyRight";
 import FootLeft from "./FootLeft";
 import FootRight from "./FootRight";
 
@@ -20,6 +21,7 @@ export default function Footer() {
         <FootLeft />
         <FootRight />
       </Container>
+      <Copyright />
     </Box>
   );
 }

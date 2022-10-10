@@ -1,54 +1,44 @@
-import { FormControl, InputBase } from "@mui/material";
-import InputLabel from "@mui/material/InputLabel";
-import { alpha, styled } from "@mui/material/styles";
+import { FormControl } from "@mui/material";
+import { useState } from "react";
+import MuiCustomInput from "../CustomInputMui/MuiCustomInput";
+import MuiCustomSelect from "../CustomInputMui/MuiCustomSelect";
+import MuiCustomInputTextarea from "../CustomInputMui/MuiCustomTextarea";
+import "./FootRight.css";
 
-const BootstrapInput = styled(InputBase)(({ theme }) => ({
-  "label + &": {
-    marginTop: theme.spacing(3),
-  },
-  "& .MuiInputBase-input": {
-    borderRadius: 4,
-    position: "relative",
-    backgroundColor: theme.palette.mode === "light" ? "#fcfcfb" : "#2b2b2b",
-    border: "1px solid #ced4da",
-    fontSize: 16,
-    width: "auto",
-    padding: "10px 12px",
-    transition: theme.transitions.create([
-      "border-color",
-      "background-color",
-      "box-shadow",
-    ]),
-    fontFamily: [
-      "-apple-system",
-      "BlinkMacSystemFont",
-      '"Segoe UI"',
-      "Roboto",
-      '"Helvetica Neue"',
-      "Arial",
-      "sans-serif",
-      '"Apple Color Emoji"',
-      '"Segoe UI Emoji"',
-      '"Segoe UI Symbol"',
-    ].join(","),
-    "&:focus": {
-      boxShadow: `${alpha(theme.palette.primary.main, 0.25)} 0 0 0 0.2rem`,
-      borderColor: theme.palette.primary.main,
-    },
-  },
-}));
 export default function FootRight() {
+  const [subject, setSubject] = useState(1);
+  const handleChange = (e: any, newValue: any) => {
+    setSubject(newValue);
+  };
   return (
-    <FormControl variant="standard">
-      <InputLabel
-        shrink
-        htmlFor="bootstrap-input"
-        disableAnimation={true}
-        sx={{ color: "white" }}
-      >
-        Email
-      </InputLabel>
-      <BootstrapInput defaultValue="react-bootstrap" id="bootstrap-input" />
+    <FormControl variant="standard" sx={{ marginLeft: "20px", width: "40%" }}>
+      <div className="form-group">
+        <label className="labelForInput" htmlFor="">
+          Email
+        </label>
+        <MuiCustomInput placeholder={"Email"} />
+      </div>
+      <div className="form-group">
+        <label className="labelForInput" htmlFor="">
+          Subject
+        </label>
+        <MuiCustomSelect
+          defaultValue={subject}
+          value={[1, 2, 3]}
+          option={[
+            "Technical Support",
+            "Another Support 1",
+            "Another Support 2",
+          ]}
+          onChange={handleChange}
+        />
+      </div>
+      <div className="form-group">
+        <label className="labelForInput" htmlFor="">
+          Content
+        </label>
+        <MuiCustomInputTextarea placeholder="Some text" />
+      </div>
     </FormControl>
   );
 }
