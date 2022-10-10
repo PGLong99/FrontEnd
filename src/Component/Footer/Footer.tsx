@@ -1,6 +1,7 @@
 import { Box, Container } from "@mui/material";
 import React from "react";
 import FootLeft from "./FootLeft";
+import FootRight from "./FootRight";
 
 export default function Footer() {
   return (
@@ -17,6 +18,7 @@ export default function Footer() {
         }}
       >
         <FootLeft />
+        <FootRight />
       </Container>
     </Box>
   );
