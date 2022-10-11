@@ -15,27 +15,68 @@ interface propsModalSignUp {
   setOpen: any;
 }
 export default function ModalSignUp({ open, setOpen }: propsModalSignUp) {
-  const [email, setEmail] = useState("");
-  const [name, setName] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("long@mail.com");
+  const [name, setName] = useState("long");
+  const [password, setPassword] = useState("longbmt1");
+  const [confirmPass, setComfirmPass] = useState("longbmt1");
   const handleClose = () => setOpen(false);
+
+  const auth = async () => {
+    try {
+      let token = sessionStorage.getItem("accesstoken");
+      let res = await axios.get(
+        `${process.env.REACT_APP_BACK_END}/api/auth/authenticated-user-details`,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const Login = async () => {
+    try {
+      let token = sessionStorage.getItem("accesstoken");
+      let res = await axios.post(
+        `${process.env.REACT_APP_BACK_END}/api/auth/login`,
+        {
+          email: email,
+          password: password,
+        },
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const register = async () => {
+    try {
+      let res = await axios.post(
+        `${process.env.REACT_APP_BACK_END}/api/auth/register`,
+        {
+          name: name,
+          email: email,
+          password: password,
+          password_confirmation: confirmPass,
+        }
+      );
+      sessionStorage.setItem("accesstoken", res.data.data.accessToken);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   const handleSignUp = () => {
-    axios
-      .post("http://localhost:3000/register", {
-        name: name,
-        email: email,
-        password: password,
-      })
-      .then(function (response) {
-        console.log(response);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+    //register();
+    //auth();
+    Login();
   };
   return (
     <Dialog open={open} onClose={handleClose}>
-      <DialogTitle>Sign Up</DialogTitle>
+      <DialogTitle sx={{ textAlign: "center" }}>Sign Up</DialogTitle>
       <DialogContent>
         <Box
           component="form"
@@ -45,28 +86,36 @@ export default function ModalSignUp({ open, setOpen }: propsModalSignUp) {
           autoComplete="off"
         >
           <TextField
-            id="outlined-basic"
             label="Email"
             variant="outlined"
             type="email"
             fullWidth
+            value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
           <TextField
-            id="outlined-basic"
             label="Name"
             variant="outlined"
             type="text"
             fullWidth
+            value={name}
             onChange={(e) => setName(e.target.value)}
           />
           <TextField
-            id="outlined-basic"
             label="Password"
             variant="outlined"
             type="password"
             fullWidth
+            value={password}
             onChange={(e) => setPassword(e.target.value)}
+          />
+          <TextField
+            label="Confirm Password"
+            variant="outlined"
+            type="password"
+            fullWidth
+            value={confirmPass}
+            onChange={(e) => setComfirmPass(e.target.value)}
           />
         </Box>
       </DialogContent>

@@ -51,8 +51,10 @@ export default function Header() {
           display: { xs: "none", md: "block" },
         }}
       >
-        {pages.map((page) => (
-          <CustomButton variant="text">{page}</CustomButton>
+        {pages.map((page, index) => (
+          <CustomButton variant="text" key={index}>
+            {page}
+          </CustomButton>
         ))}
         <CustomColorButton
           variant="outlined"
