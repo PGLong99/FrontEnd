@@ -8,8 +8,8 @@ import {
   TextField,
 } from "@mui/material";
 import React, { useContext, useState } from "react";
-import IsAuthContext from "../../../Context/authContext";
 import { register } from "../../../Utils/Auth";
+import { AuthContext } from "../../../Context/authContext";
 
 interface propsModalSignUp {
   open: boolean;
@@ -21,10 +21,12 @@ export default function ModalSignUp({ open, setOpen }: propsModalSignUp) {
   const [password, setPassword] = useState("longbmt1");
   const [confirmPass, setComfirmPass] = useState("longbmt1");
   const handleClose = () => setOpen(false);
-  //const isAuth = useContext(IsAuthContext);
+  const { setTrue, setFalse } = useContext(AuthContext);
+
   const handleSignUp = async () => {
     let res = await register(name, email, password, confirmPass);
-    console.log(res);
+    //await login(email, password);
+    res.success ? setTrue() : setFalse();
   };
   return (
     <Dialog open={open} onClose={handleClose}>

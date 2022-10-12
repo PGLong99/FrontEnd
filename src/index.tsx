@@ -6,13 +6,13 @@ import "@fontsource/roboto/300.css";
 import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
-import IsAuthProvider from "./Context/authContext";
+import { AuthProvider } from "./Context/authContext";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 root.render(
-  <IsAuthProvider>
+  <AuthProvider>
     <App />
-  </IsAuthProvider>
+  </AuthProvider>
 );

@@ -7,27 +7,49 @@ import {
   MenuItem,
   styled,
   Typography,
+  useMediaQuery,
+  useTheme,
 } from "@mui/material";
 import LearningLogo from "../Icon_Logo/LearningLogo";
 import CustomColorButton from "../CustomButton/CustomColorButton";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import MenuIcon from "@mui/icons-material/Menu";
 import ModalSignUp from "./Modal/ModalSignUp";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import { AuthContext } from "../../Context/authContext";
 
 export default function Header() {
-  const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
+  const [anchorPage, setAnchorPage] = useState<null | HTMLElement>(null);
+  const [anchorAccount, setAnchorAccount] = useState<null | HTMLElement>(null);
   const [openSignUp, setOpenSignUp] = useState(false);
-  const handleOpenSignUp = () => setOpenSignUp(true);
+  const { isAuth, setFalse } = useContext(AuthContext);
   const CustomButton = styled(Button)({
     color: "#000000",
   });
+  const matches = useMediaQuery(useTheme().breakpoints.down("md"));
   const pages = ["HOME", "ABOUT", "COURSES", "CONTACT"];
 
-  const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorElNav(event.currentTarget);
+  //event
+  const handleOpenSignUp = () => {
+    setOpenSignUp(true);
+    setAnchorAccount(null);
   };
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
+
+  const handleOpenPageMenu = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorPage(event.currentTarget);
+  };
+  const handleClosePageMenu = () => {
+    setAnchorPage(null);
+  };
+  const handleOpenAccountMenu = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorAccount(event.currentTarget);
+  };
+  const handleCloseAccountMenu = () => {
+    setAnchorAccount(null);
+  };
+  const handleClickLogOut = () => {
+    setFalse();
+    setAnchorAccount(null);
   };
   return (
     <Box
@@ -42,8 +64,50 @@ export default function Header() {
         width: "100%",
       }}
     >
-      <AfitLogo />
-      <LearningLogo />
+      <Box
+        sx={{
+          display: { xs: "block", md: "none" },
+        }}
+      >
+        <IconButton
+          size="large"
+          aria-label="account of current user"
+          aria-controls="menu-appbar"
+          aria-haspopup="true"
+          onClick={handleOpenPageMenu}
+          color="inherit"
+        >
+          <MenuIcon />
+        </IconButton>
+        <Menu
+          id="menu-appbar"
+          anchorEl={anchorPage}
+          anchorOrigin={{
+            vertical: "bottom",
+            horizontal: "left",
+          }}
+          keepMounted
+          transformOrigin={{
+            vertical: "top",
+            horizontal: "left",
+          }}
+          open={Boolean(anchorPage)}
+          onClose={handleClosePageMenu}
+          sx={{
+            display: { xs: "block", md: "none" },
+          }}
+        >
+          {pages.map((page) => (
+            <MenuItem key={page} onClick={handleClosePageMenu}>
+              <Typography textAlign="center">{page}</Typography>
+            </MenuItem>
+          ))}
+        </Menu>
+      </Box>
+      <Box sx={{ flexGrow: { xs: 1, md: 0 }, textAlign: "center" }}>
+        <AfitLogo />
+        <LearningLogo />
+      </Box>
       <Box
         sx={{
           textAlign: "right",
@@ -56,70 +120,83 @@ export default function Header() {
             {page}
           </CustomButton>
         ))}
-        <CustomColorButton
-          variant="outlined"
-          color="#44417A"
-          text="Login"
-          sx={{ margin: "0 10px 0 10px" }}
-        />
-        <CustomColorButton
-          variant="contained"
-          color="#44417A"
-          text="Sign Up"
-          sx={{ margin: "0 10px 0 10px" }}
-          onClick={handleOpenSignUp}
-        />
       </Box>
+      {!isAuth && (
+        <Box sx={{ display: { xs: "none", md: "block" } }}>
+          <CustomColorButton
+            variant="outlined"
+            color="#44417A"
+            text="Login"
+            sx={{ margin: "0 10px 0 10px" }}
+          />
+          <CustomColorButton
+            variant="contained"
+            color="#44417A"
+            text="Sign Up"
+            sx={{ margin: "0 10px 0 10px" }}
+            onClick={handleOpenSignUp}
+          />
+        </Box>
+      )}
 
-      {/* Reponsive */}
-      <Box
-        sx={{
-          textAlign: "right",
-          flexGrow: 1,
-          display: { xs: "block", md: "none" },
-        }}
-      >
-        <IconButton
-          size="large"
-          aria-label="account of current user"
-          aria-controls="menu-appbar"
-          aria-haspopup="true"
-          onClick={handleOpenNavMenu}
-          color="inherit"
+      {(matches || isAuth) && (
+        <Box
+          sx={
+            {
+              // display: { xs: "block", md: "none" },
+            }
+          }
         >
-          <MenuIcon />
-        </IconButton>
-        <Menu
-          id="menu-appbar"
-          anchorEl={anchorElNav}
-          anchorOrigin={{
-            vertical: "bottom",
-            horizontal: "left",
-          }}
-          keepMounted
-          transformOrigin={{
-            vertical: "top",
-            horizontal: "left",
-          }}
-          open={Boolean(anchorElNav)}
-          onClose={handleCloseNavMenu}
-          sx={{
-            display: { xs: "block", md: "none" },
-          }}
-        >
-          {pages.map((page) => (
-            <MenuItem key={page} onClick={handleCloseNavMenu}>
-              <Typography textAlign="center">{page}</Typography>
-            </MenuItem>
-          ))}
-          <MenuItem onClick={handleCloseNavMenu}>
-            <Typography textAlign="center">SIGN UP</Typography>
-          </MenuItem>
-          <MenuItem onClick={handleCloseNavMenu}>
-            <Typography textAlign="center">LOGIN</Typography>
-          </MenuItem>
-        </Menu>
-      </Box>
+          <IconButton
+            size="large"
+            aria-label="account of current user"
+            aria-controls="menu-appbar"
+            aria-haspopup="true"
+            onClick={handleOpenAccountMenu}
+            color="inherit"
+          >
+            <AccountCircleIcon fontSize="large" />
+          </IconButton>
+          <Menu
+            id="menu-appbar"
+            anchorEl={anchorAccount}
+            anchorOrigin={{
+              vertical: "bottom",
+              horizontal: "left",
+            }}
+            keepMounted
+            transformOrigin={{
+              vertical: "top",
+              horizontal: "left",
+            }}
+            open={Boolean(anchorAccount)}
+            onClose={handleCloseAccountMenu}
+            sx={
+              {
+                // display: { xs: "block", md: "none" },
+              }
+            }
+          >
+            {!isAuth ? (
+              <div>
+                <MenuItem onClick={handleCloseAccountMenu}>
+                  <Typography>LOGIN</Typography>
+                </MenuItem>
+                <MenuItem onClick={handleOpenSignUp}>
+                  <Typography>SIGN UP</Typography>
+                </MenuItem>
+              </div>
+            ) : (
+              <div>
+                <MenuItem onClick={handleClickLogOut}>
+                  <Typography>LOG OUT</Typography>
+                </MenuItem>
+              </div>
+            )}
+          </Menu>
+        </Box>
+      )}
+
       <ModalSignUp open={openSignUp} setOpen={setOpenSignUp} />
     </Box>
   );
