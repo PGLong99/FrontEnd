@@ -7,8 +7,9 @@ import {
   DialogTitle,
   TextField,
 } from "@mui/material";
-import axios from "axios";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import IsAuthContext from "../../../Context/authContext";
+import { register } from "../../../Utils/Auth";
 
 interface propsModalSignUp {
   open: boolean;
@@ -20,59 +21,10 @@ export default function ModalSignUp({ open, setOpen }: propsModalSignUp) {
   const [password, setPassword] = useState("longbmt1");
   const [confirmPass, setComfirmPass] = useState("longbmt1");
   const handleClose = () => setOpen(false);
-
-  const auth = async () => {
-    try {
-      let token = sessionStorage.getItem("accesstoken");
-      let res = await axios.get(
-        `${process.env.REACT_APP_BACK_END}/api/auth/authenticated-user-details`,
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
-      console.log(res);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  const Login = async () => {
-    try {
-      let token = sessionStorage.getItem("accesstoken");
-      let res = await axios.post(
-        `${process.env.REACT_APP_BACK_END}/api/auth/login`,
-        {
-          email: email,
-          password: password,
-        },
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
-      console.log(res);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  const register = async () => {
-    try {
-      let res = await axios.post(
-        `${process.env.REACT_APP_BACK_END}/api/auth/register`,
-        {
-          name: name,
-          email: email,
-          password: password,
-          password_confirmation: confirmPass,
-        }
-      );
-      sessionStorage.setItem("accesstoken", res.data.data.accessToken);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  const handleSignUp = () => {
-    //register();
-    //auth();
-    Login();
+  //const isAuth = useContext(IsAuthContext);
+  const handleSignUp = async () => {
+    let res = await register(name, email, password, confirmPass);
+    console.log(res);
   };
   return (
     <Dialog open={open} onClose={handleClose}>

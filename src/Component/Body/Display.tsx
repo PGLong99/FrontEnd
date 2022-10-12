@@ -1,4 +1,4 @@
-import { Box, Grid } from "@mui/material";
+import { Grid } from "@mui/material";
 import BookReaderIcon from "../Icon_Logo/BookReaderIcon";
 import GiftIcon from "../Icon_Logo/GiftIcon";
 import RocketIcon from "../Icon_Logo/RocketIcon";
@@ -158,18 +158,16 @@ export default function Display() {
   ];
   return (
     <Container sx={{ maxWidth: "1150px", marginTop: "50px" }}>
-      <Box sx={{ flexGrow: 1 }}>
-        <Grid container columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-          {dataWhyUs.map((item, index) => (
-            <WhyUs
-              icon={item.icon}
-              tittle={item.tittle}
-              subTittle={item.subTittle}
-              key={index}
-            ></WhyUs>
-          ))}
-        </Grid>
-      </Box>
+      <Grid container columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+        {dataWhyUs.map((item, index) => (
+          <WhyUs
+            icon={item.icon}
+            tittle={item.tittle}
+            subTittle={item.subTittle}
+            key={index}
+          ></WhyUs>
+        ))}
+      </Grid>
       {dataCoursesList.map((item, index) => (
         <CoursesList
           coursesName={item.coursesName}

@@ -8,7 +8,7 @@ interface propWhyUs {
 }
 export default function WhyUs({ icon, tittle, subTittle }: propWhyUs) {
   return (
-    <Grid item xs={6} md={3} sx={{ maxWidth: "265px", padding: "10px" }}>
+    <Grid item xs={6} md={3} sx={{ padding: "10px" }}>
       <Box
         sx={{
           backgroundColor: "#FFFFFF",

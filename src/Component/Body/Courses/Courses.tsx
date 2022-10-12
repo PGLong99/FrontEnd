@@ -40,7 +40,7 @@ export default function Courses({ courses }: CoursesProps) {
   });
   return (
     <Grid item xs={6} md={3}>
-      <Card sx={{ maxWidth: 345, height: "100%" }}>
+      <Card sx={{ height: "100%" }}>
         <CardActionArea sx={{ height: "100%" }}>
           <Box sx={{ position: "relative" }}>
             <CardMedia component="img" image="image.png" alt="green iguana" />
