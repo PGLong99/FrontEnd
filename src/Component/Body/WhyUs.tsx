@@ -22,10 +22,20 @@ export default function WhyUs({ icon, tittle, subTittle }: propWhyUs) {
         <Box
           sx={{ display: "flex", flexDirection: "column", marginLeft: "10px" }}
         >
-          <Typography variant="subtitle2" display="block" gutterBottom>
+          <Typography
+            variant="subtitle2"
+            display="block"
+            gutterBottom
+            sx={{ fontSize: { xs: "revert" } }}
+          >
             {tittle}
           </Typography>
-          <Typography variant="subtitle2" display="block" gutterBottom>
+          <Typography
+            variant="subtitle2"
+            display="block"
+            gutterBottom
+            sx={{ fontSize: { xs: "revert" } }}
+          >
             {subTittle}
           </Typography>
         </Box>

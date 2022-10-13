@@ -19,7 +19,7 @@ export default function Categories() {
       <Typography
         sx={{
           fontWeight: 500,
-          fontSize: "34px",
+          fontSize: { xs: "inherit", sm: "1.5rem", md: "34px" },
           lineHeight: "48px",
           marginBottom: "20px",
         }}
