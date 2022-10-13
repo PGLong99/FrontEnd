@@ -5,7 +5,7 @@ interface propLink {
 }
 export default function Link({ text }: propLink) {
   return (
-    <Grid item xs={6} md={4}>
+    <Grid item xs={12} sm={6} md={4}>
       <Typography
         sx={{
           color: "#fff",

@@ -1,11 +1,12 @@
 import { Box, Grid, Typography } from "@mui/material";
+import Display from "../Body/Display";
 import CustomColorButton from "../CustomButton/CustomColorButton";
+import AtlassianLogo from "../Icon_Logo/AtlassianLogo";
 import AirbnbLogo from "../Icon_Logo/BusinessLogo/AirbnbLogo";
 import FitbitLogo from "../Icon_Logo/BusinessLogo/FitbitLogo";
 import GoogleLogo from "../Icon_Logo/BusinessLogo/GoogleLogo";
-import AtlassianLogo from "./AtlassianLogo";
-import GithubLogo from "./GithubLogo";
-import InstagramLogo from "./InstagramLogo";
+import GithubLogo from "../Icon_Logo/GithubLogo";
+import InstagramLogo from "../Icon_Logo/InstagramLogo";
 
 export default function Business() {
   const listLogo = [
@@ -48,7 +49,16 @@ export default function Business() {
         color="#44417A"
         text="Get AFIT for Business"
       />
-      <Grid container spacing={4} sx={{ marginTop: "10px" }}>
+      <Grid
+        container
+        spacing={4}
+        sx={{
+          marginTop: "10px",
+          display: { md: "flex" },
+          flexGrow: { md: 1 },
+          justifyContent: "center",
+        }}
+      >
         {listLogo.map((item, index) => (
           <Grid item md={4} key={index}>
             {item}
