@@ -1,5 +1,4 @@
 import { Box, Grid, Typography } from "@mui/material";
-import Display from "../Body/Display";
 import CustomColorButton from "../CustomButton/CustomColorButton";
 import AtlassianLogo from "../Icon_Logo/AtlassianLogo";
 import AirbnbLogo from "../Icon_Logo/BusinessLogo/AirbnbLogo";
