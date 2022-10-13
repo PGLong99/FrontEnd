@@ -8,18 +8,10 @@ import {
   styled,
   Typography,
 } from "@mui/material";
+import { ICourses } from "../Display";
 import Learning from "./Learning";
 import Rate from "./Rate";
 
-export interface ICourses {
-  viewNumber: string;
-  rateNumber: string;
-  tittle: string;
-  tag: string[];
-  star: number;
-  learingState: string;
-  image: string;
-}
 interface CoursesProps {
   courses: ICourses;
 }

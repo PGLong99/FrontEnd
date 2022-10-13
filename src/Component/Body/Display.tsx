@@ -6,8 +6,54 @@ import GraduationCapIcon from "../Icon_Logo/GraduationCapIcon";
 import WhyUs from "./WhyUs";
 import CoursesList from "./Courses/CoursesList";
 import { Container } from "@mui/system";
+import { useContext, useEffect, useState } from "react";
+import axios from "axios";
+import { AuthContext } from "../../Context/authContext";
 
+export interface ICoursesList {
+  "Popular Courses": ICourses[];
+  "My Courses": ICourses[];
+  "My Assignments": ICourses[];
+}
+export interface ICourses {
+  viewNumber: string;
+  rateNumber: string;
+  tittle: string;
+  tag: string[];
+  star: number;
+  learingState: string;
+  image: string;
+}
 export default function Display() {
+  const [dataCourses, setDataCourses] = useState<ICoursesList>({
+    "Popular Courses": [],
+    "My Courses": [],
+    "My Assignments": [],
+  });
+  const { isAuth } = useContext(AuthContext);
+  useEffect(() => {
+    getCourses().then((data: any) => {
+      let temp: ICoursesList = {
+        "Popular Courses": [],
+        "My Courses": [],
+        "My Assignments": [],
+      };
+      data.forEach((item: any) => {
+        if (item.type in temp) {
+          item.tag = item.tag.split(",");
+          temp[item.type as keyof ICoursesList].push(item);
+        }
+      });
+      setDataCourses(temp);
+    });
+  }, [isAuth]);
+  const getCourses = async () => {
+    return (
+      await axios.get(`${process.env.REACT_APP_BACK_END}/api/data/courses`, {
+        headers: { Authorization: `Bearer ${sessionStorage.getItem("token")}` },
+      })
+    ).data;
+  };
   const dataWhyUs = [
     {
       icon: <GraduationCapIcon />,
@@ -30,132 +76,6 @@ export default function Display() {
       subTittle: "Free Resources",
     },
   ];
-  const dataCoursesList = [
-    {
-      coursesName: "Popular Courses",
-      courses: [
-        {
-          viewNumber: "200k",
-          rateNumber: "10k",
-          tittle: "2020 Complete Python Bootcamp From Zero to Hero...",
-          tag: ["#Onboarding training", "#Basic"],
-          star: 4,
-          learingState: "NEW",
-          image: "image.png",
-        },
-        {
-          viewNumber: "200k",
-          rateNumber: "10k",
-          tittle: "Python for Data Science and Machine Learning Bootcamp",
-          tag: ["#Onboarding training", "#Basic"],
-          star: 4,
-          learingState: "5/10",
-          image: "image.png",
-        },
-        {
-          viewNumber: "200k",
-          rateNumber: "10k",
-          tittle: "The Web Developer Bootcamp 2020",
-          tag: ["#Onboarding training", "#Basic"],
-          star: 4,
-          learingState: "NEW",
-          image: "image.png",
-        },
-        {
-          viewNumber: "200k",
-          rateNumber: "10k",
-          tittle: "The Complete JavaScript Course 2020: From Zero to...",
-          tag: ["#Onboarding training", "#Basic"],
-          star: 4,
-          learingState: "NEW",
-          image: "image.png",
-        },
-      ],
-    },
-    {
-      coursesName: "My Courses",
-      courses: [
-        {
-          viewNumber: "200k",
-          rateNumber: "10k",
-          tittle: "React - The Complete Guide (incl Hooks, React Router, ...",
-          tag: ["#Onboarding training", "#Basic"],
-          star: 4,
-          learingState: "NEW",
-          image: "image.png",
-        },
-        {
-          viewNumber: "200k",
-          rateNumber: "10k",
-          tittle: "Machine Learning A-Z™: Hands-On Python & R In Data...",
-          tag: ["#Onboarding training", "#Basic"],
-          star: 4,
-          learingState: "5/10",
-          image: "image.png",
-        },
-        {
-          viewNumber: "200k",
-          rateNumber: "10k",
-          tittle: "Microsoft Excel - Excel from Beginner to Advanced",
-          tag: ["#Onboarding training", "#Basic"],
-          star: 4,
-          learingState: "deprecated".toUpperCase(),
-          image: "image.png",
-        },
-        {
-          viewNumber: "200k",
-          rateNumber: "10k",
-          tittle: "Learn Ethical Hacking From Scratch",
-          tag: ["#Onboarding training", "#Basic"],
-          star: 4,
-          learingState: "5/10",
-          image: "image.png",
-        },
-      ],
-    },
-    {
-      coursesName: "My Assignments",
-      courses: [
-        {
-          viewNumber: "200k",
-          rateNumber: "10k",
-          // eslint-disable-next-line no-script-url
-          tittle: "JavaScript: Understanding the Weird Parts",
-          tag: ["#Onboarding training", "#Basic"],
-          star: 4,
-          learingState: "5/10",
-          image: "image.png",
-        },
-        {
-          viewNumber: "200k",
-          rateNumber: "10k",
-          tittle: "The Modern JavaScript Bootcamp",
-          tag: ["#Onboarding training", "#Basic"],
-          star: 4,
-          learingState: "5/10",
-          image: "image.png",
-        },
-        {
-          viewNumber: "200k",
-          rateNumber: "10k",
-          tittle: "20 Web Projects With Vanilla JavaScript",
-          tag: ["#Onboarding training", "#Basic"],
-          star: 4,
-          learingState: "DONE",
-          image: "image.png",
-        },
-        {
-          viewNumber: "200k",
-          rateNumber: "10k",
-          tittle: "JavaScript 2019: JavaScript ES6 Certification Course",
-          tag: ["#Onboarding training", "#Basic"],
-          star: 4,
-          learingState: "5/10",
-          image: "image.png",
-        },
-      ],
-    },
-  ];
   return (
     <Container sx={{ maxWidth: "1150px", marginTop: "50px" }}>
       <Grid container columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
@@ -168,13 +88,24 @@ export default function Display() {
           ></WhyUs>
         ))}
       </Grid>
-      {dataCoursesList.map((item, index) => (
+      {dataCourses["My Assignments"].length !== 0 && (
         <CoursesList
-          coursesName={item.coursesName}
-          courses={item.courses}
-          key={index}
+          coursesName={"My Assignments"}
+          courses={dataCourses["My Assignments"]}
         />
-      ))}
+      )}
+      {dataCourses["My Courses"].length !== 0 && (
+        <CoursesList
+          coursesName={"My Courses"}
+          courses={dataCourses["My Courses"]}
+        />
+      )}
+      {dataCourses["Popular Courses"].length !== 0 && (
+        <CoursesList
+          coursesName={"Popular Courses"}
+          courses={dataCourses["Popular Courses"]}
+        />
+      )}
     </Container>
   );
 }

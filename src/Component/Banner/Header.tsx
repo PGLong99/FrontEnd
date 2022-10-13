@@ -17,11 +17,13 @@ import MenuIcon from "@mui/icons-material/Menu";
 import ModalSignUp from "./Modal/ModalSignUp";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { AuthContext } from "../../Context/authContext";
+import ModalLogin from "./Modal/ModalLogin";
 
 export default function Header() {
   const [anchorPage, setAnchorPage] = useState<null | HTMLElement>(null);
   const [anchorAccount, setAnchorAccount] = useState<null | HTMLElement>(null);
   const [openSignUp, setOpenSignUp] = useState(false);
+  const [openLogin, setOpenLogin] = useState(false);
   const { isAuth, setFalse } = useContext(AuthContext);
   const CustomButton = styled(Button)({
     color: "#000000",
@@ -34,7 +36,10 @@ export default function Header() {
     setOpenSignUp(true);
     setAnchorAccount(null);
   };
-
+  const handleOpenLogin = () => {
+    setOpenLogin(true);
+    setAnchorAccount(null);
+  };
   const handleOpenPageMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorPage(event.currentTarget);
   };
@@ -48,9 +53,11 @@ export default function Header() {
     setAnchorAccount(null);
   };
   const handleClickLogOut = () => {
+    sessionStorage.removeItem("token");
     setFalse();
     setAnchorAccount(null);
   };
+
   return (
     <Box
       sx={{
@@ -128,6 +135,7 @@ export default function Header() {
             color="#44417A"
             text="Login"
             sx={{ margin: "0 10px 0 10px" }}
+            onClick={handleOpenLogin}
           />
           <CustomColorButton
             variant="contained"
@@ -138,7 +146,6 @@ export default function Header() {
           />
         </Box>
       )}
-
       {(matches || isAuth) && (
         <Box
           sx={
@@ -179,7 +186,7 @@ export default function Header() {
           >
             {!isAuth ? (
               <div>
-                <MenuItem onClick={handleCloseAccountMenu}>
+                <MenuItem onClick={handleOpenLogin}>
                   <Typography>LOGIN</Typography>
                 </MenuItem>
                 <MenuItem onClick={handleOpenSignUp}>
@@ -198,6 +205,7 @@ export default function Header() {
       )}
 
       <ModalSignUp open={openSignUp} setOpen={setOpenSignUp} />
+      <ModalLogin open={openLogin} setOpen={setOpenLogin} />
     </Box>
   );
 }

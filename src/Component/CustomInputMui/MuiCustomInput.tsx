@@ -65,7 +65,20 @@ const CustomInput = React.forwardRef(function CustomInput(
 });
 interface propsMuiCustomInput {
   placeholder: string;
+  value?: string;
+  onChange?: any;
 }
-export default function MuiCustomInput({ placeholder }: propsMuiCustomInput) {
-  return <CustomInput aria-label="input" placeholder={placeholder} />;
+export default function MuiCustomInput({
+  placeholder,
+  value,
+  onChange,
+}: propsMuiCustomInput) {
+  return (
+    <CustomInput
+      aria-label="input"
+      placeholder={placeholder}
+      value={value}
+      onChange={onChange}
+    />
+  );
 }

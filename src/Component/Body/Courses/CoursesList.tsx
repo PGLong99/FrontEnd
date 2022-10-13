@@ -1,6 +1,7 @@
 import { Box, Grid, Typography } from "@mui/material";
 import CustomColorButton from "../../CustomButton/CustomColorButton";
-import Courses, { ICourses } from "./Courses";
+import { ICourses } from "../Display";
+import Courses from "./Courses";
 
 interface propsCourses {
   coursesName: string;

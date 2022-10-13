@@ -8,21 +8,21 @@ import {
   TextField,
 } from "@mui/material";
 import React, { useContext, useState } from "react";
-import { register } from "../../../Utils/Auth";
+import { login } from "../../../Utils/Auth";
 import { AuthContext } from "../../../Context/authContext";
-import { propsModal } from "./ModalLogin";
 
-export default function ModalSignUp({ open, setOpen }: propsModal) {
+export interface propsModal {
+  open: boolean;
+  setOpen: any;
+}
+export default function ModalLogin({ open, setOpen }: propsModal) {
   const [email, setEmail] = useState("long@mail.com");
-  const [name, setName] = useState("long");
   const [password, setPassword] = useState("longbmt1");
-  const [confirmPass, setComfirmPass] = useState("longbmt1");
   const handleClose = () => setOpen(false);
   const { setTrue, setFalse } = useContext(AuthContext);
 
-  const handleSignUp = async () => {
-    let res = await register(name, email, password, confirmPass);
-    //await login(email, password);
+  const handleLogin = async () => {
+    let res = await login(email, password);
     sessionStorage.setItem("token", res.data.accessToken);
     res.success ? setTrue() : setFalse();
   };
@@ -46,14 +46,6 @@ export default function ModalSignUp({ open, setOpen }: propsModal) {
             onChange={(e) => setEmail(e.target.value)}
           />
           <TextField
-            label="Name"
-            variant="outlined"
-            type="text"
-            fullWidth
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          />
-          <TextField
             label="Password"
             variant="outlined"
             type="password"
@@ -61,19 +53,11 @@ export default function ModalSignUp({ open, setOpen }: propsModal) {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          <TextField
-            label="Confirm Password"
-            variant="outlined"
-            type="password"
-            fullWidth
-            value={confirmPass}
-            onChange={(e) => setComfirmPass(e.target.value)}
-          />
         </Box>
       </DialogContent>
       <DialogActions>
         <Button onClick={handleClose}>Cancel</Button>
-        <Button onClick={handleSignUp}>Sign Up</Button>
+        <Button onClick={handleLogin}>Login</Button>
       </DialogActions>
     </Dialog>
   );

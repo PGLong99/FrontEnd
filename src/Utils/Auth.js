@@ -1,8 +1,7 @@
 import axios from "axios";
 
-export const auth = async () => {
+export const auth = async (token) => {
   try {
-    let token = sessionStorage.getItem("accesstoken");
     let res = await axios.get(
       `${process.env.REACT_APP_BACK_END}/api/auth/authenticated-user-details`,
       {
