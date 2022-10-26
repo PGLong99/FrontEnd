@@ -28,7 +28,7 @@ export default function Rate({ rateNumber, rateStar }: propsRate) {
       {Array.from(Array(5 - rateStar), (item, index) => {
         return <StarOulineIcon key={index} />;
       })}
-      <p style={{ color: "#F3AA1B", marginLeft: "5px" }}>(10k)</p>
+      <p style={{ color: "#F3AA1B", marginLeft: "5px" }}>{rateNumber}</p>
     </Box>
   );
 }

@@ -22,7 +22,9 @@ export default function FootLeft() {
   ];
   return (
     <Box sx={{ width: "60%", display: "flex" }}>
-      <AfitLogoWhite />
+      <Box sx={{ marginLeft: "20px", display: { xs: "none", sm: "block" } }}>
+        <AfitLogoWhite />
+      </Box>
       <Box sx={{ marginLeft: "20px" }}>
         <Typography
           sx={{

@@ -16,8 +16,8 @@ export interface ICoursesList {
   "My Assignments": ICourses[];
 }
 export interface ICourses {
-  viewNumber: string;
-  rateNumber: string;
+  view_number: number;
+  rate_number: number;
   tittle: string;
   tag: string[];
   star: number;
@@ -30,30 +30,52 @@ export default function Display() {
     "My Courses": [],
     "My Assignments": [],
   });
+
   const { isAuth } = useContext(AuthContext);
   useEffect(() => {
-    getCourses().then((data: any) => {
-      let temp: ICoursesList = {
-        "Popular Courses": [],
-        "My Courses": [],
-        "My Assignments": [],
-      };
-      data.forEach((item: any) => {
-        if (item.type in temp) {
+    let config = {
+      headers: { Authorization: `Bearer ${sessionStorage.getItem("token")}` },
+    };
+    let temp: ICoursesList = {
+      "Popular Courses": [],
+      "My Courses": [],
+      "My Assignments": [],
+    };
+    let id = JSON.parse(sessionStorage.getItem("user") || "{}").id;
+    const fetchData = async () => {
+      try {
+        let myAssign = await axios.get(
+          `${process.env.REACT_APP_BACK_END}/api/courses/myassignments?assign_id=${id}&limit=4`,
+          config
+        );
+        myAssign.data.forEach((item: any) => {
           item.tag = item.tag.split(",");
-          temp[item.type as keyof ICoursesList].push(item);
-        }
-      });
-      setDataCourses(temp);
-    });
+          temp["My Assignments"].push(item);
+        });
+        let myCourses = await axios.get(
+          `${process.env.REACT_APP_BACK_END}/api/courses/mycourses?owner_id=${id}&limit=4`,
+          config
+        );
+        myCourses.data.forEach((item: any) => {
+          item.tag = item.tag.split(",");
+          temp["My Courses"].push(item);
+        });
+        let popularCourses = await axios.get(
+          `${process.env.REACT_APP_BACK_END}/api/courses/popularcourses?limit=4`,
+          config
+        );
+        popularCourses.data.forEach((item: any) => {
+          item.tag = item.tag.split(",");
+          temp["Popular Courses"].push(item);
+        });
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setDataCourses(temp);
+      }
+    };
+    fetchData();
   }, [isAuth]);
-  const getCourses = async () => {
-    return (
-      await axios.get(`${process.env.REACT_APP_BACK_END}/api/data/courses`, {
-        headers: { Authorization: `Bearer ${sessionStorage.getItem("token")}` },
-      })
-    ).data;
-  };
   const dataWhyUs = [
     {
       icon: <GraduationCapIcon />,
@@ -77,7 +99,7 @@ export default function Display() {
     },
   ];
   return (
-    <Container sx={{ maxWidth: "1150px", marginTop: "50px" }}>
+    <Container maxWidth={false} sx={{ maxWidth: "1150px", marginTop: "50px" }}>
       <Grid container columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
         {dataWhyUs.map((item, index) => (
           <WhyUs

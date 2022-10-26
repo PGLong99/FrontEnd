@@ -30,17 +30,26 @@ export default function Courses({ courses }: CoursesProps) {
     lineHeight: "24px",
     color: "#97a5ac",
   });
+  const parseNumber = (n: number) => {
+    if (n < 10000) return n.toString();
+    else {
+      return (n / 1000).toString().split(".")[0] + "k";
+    }
+  };
   return (
     <Grid item xs={6} md={3}>
       <Card sx={{ height: "100%" }}>
         <CardActionArea sx={{ height: "100%" }}>
           <Box sx={{ position: "relative" }}>
-            <CardMedia component="img" image="image.png" alt="green iguana" />
+            <CardMedia component="img" image="image.png" alt="" />
             <Learning
               state={courses.learingState}
-              viewNumber={courses.viewNumber}
+              viewNumber={parseNumber(courses.view_number)}
             />
-            <Rate rateNumber={courses.rateNumber} rateStar={courses.star} />
+            <Rate
+              rateNumber={parseNumber(courses.rate_number)}
+              rateStar={courses.star}
+            />
           </Box>
           <CardContent>
             <TypographyTittle

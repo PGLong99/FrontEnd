@@ -16,7 +16,7 @@ export default function FootRight() {
   };
   const submitRequest = async () => {
     await axios.post(
-      `${process.env.REACT_APP_BACK_END}/api/data/userRequest`,
+      `${process.env.REACT_APP_BACK_END}/api/feedback`,
       {
         email: mail,
         subject: subject,

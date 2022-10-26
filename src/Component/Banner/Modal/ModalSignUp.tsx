@@ -5,26 +5,34 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
+  Snackbar,
   TextField,
 } from "@mui/material";
 import React, { useContext, useState } from "react";
 import { register } from "../../../Utils/Auth";
 import { AuthContext } from "../../../Context/authContext";
 import { propsModal } from "./ModalLogin";
+import { validateEmail } from "../../../Utils/Validate";
 
 export default function ModalSignUp({ open, setOpen }: propsModal) {
   const [email, setEmail] = useState("long@mail.com");
+  const [mailValid, setMailValid] = useState({ valid: false, helpText: "" });
   const [name, setName] = useState("long");
   const [password, setPassword] = useState("longbmt1");
   const [confirmPass, setComfirmPass] = useState("longbmt1");
   const handleClose = () => setOpen(false);
   const { setTrue, setFalse } = useContext(AuthContext);
+  const [snackBarState, setSnackBarState] = useState(false);
 
   const handleSignUp = async () => {
-    let res = await register(name, email, password, confirmPass);
-    //await login(email, password);
-    sessionStorage.setItem("token", res.data.accessToken);
-    res.success ? setTrue() : setFalse();
+    if (validateEmail(email)) {
+      setMailValid({ valid: false, helpText: "" });
+      let res = await register(name, email, password, confirmPass);
+      sessionStorage.setItem("token", res.data.accessToken);
+      res.success ? setTrue() && setOpen(false) : setFalse();
+    } else {
+      setMailValid({ valid: true, helpText: "Error Email" });
+    }
   };
   return (
     <Dialog open={open} onClose={handleClose}>
@@ -44,6 +52,8 @@ export default function ModalSignUp({ open, setOpen }: propsModal) {
             fullWidth
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            helperText={mailValid.helpText}
+            error={mailValid.valid}
           />
           <TextField
             label="Name"
@@ -75,6 +85,12 @@ export default function ModalSignUp({ open, setOpen }: propsModal) {
         <Button onClick={handleClose}>Cancel</Button>
         <Button onClick={handleSignUp}>Sign Up</Button>
       </DialogActions>
+      <Snackbar
+        anchorOrigin={{ vertical: "top", horizontal: "right" }}
+        open={snackBarState}
+        // onClose={handleClose}
+        message="Register success"
+      />
     </Dialog>
   );
 }

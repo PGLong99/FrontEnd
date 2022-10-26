@@ -69,6 +69,7 @@ export default function Header() {
         maxHeight: "75px",
         flexGrow: 1,
         width: "100%",
+        zIndex: 3,
       }}
     >
       <Box

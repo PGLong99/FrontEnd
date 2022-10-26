@@ -14,19 +14,27 @@ export default function WhyUs({ icon, tittle, subTittle }: propWhyUs) {
           backgroundColor: "#FFFFFF",
           height: "100px",
           display: "flex",
-          justifyContent: "center",
+          justifyContent: "space-around",
           alignItems: "center",
+          maxWidth: "265px",
         }}
       >
         {icon}
         <Box
-          sx={{ display: "flex", flexDirection: "column", marginLeft: "10px" }}
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            fontWeight: 700,
+            lineHeight: "24px",
+          }}
         >
           <Typography
             variant="subtitle2"
             display="block"
             gutterBottom
-            sx={{ fontSize: { xs: "revert" } }}
+            sx={{
+              fontSize: { xs: "8px", sm: "12px", lg: "16px" },
+            }}
           >
             {tittle}
           </Typography>
@@ -34,7 +42,7 @@ export default function WhyUs({ icon, tittle, subTittle }: propWhyUs) {
             variant="subtitle2"
             display="block"
             gutterBottom
-            sx={{ fontSize: { xs: "revert" } }}
+            sx={{ fontSize: { xs: "8px", sm: "12px", lg: "16px" } }}
           >
             {subTittle}
           </Typography>

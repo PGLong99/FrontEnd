@@ -10,6 +10,7 @@ import {
 import React, { useContext, useState } from "react";
 import { login } from "../../../Utils/Auth";
 import { AuthContext } from "../../../Context/authContext";
+import axios from "axios";
 
 export interface propsModal {
   open: boolean;
@@ -20,11 +21,26 @@ export default function ModalLogin({ open, setOpen }: propsModal) {
   const [password, setPassword] = useState("longbmt1");
   const handleClose = () => setOpen(false);
   const { setTrue, setFalse } = useContext(AuthContext);
-
   const handleLogin = async () => {
     let res = await login(email, password);
     sessionStorage.setItem("token", res.data.accessToken);
-    res.success ? setTrue() : setFalse();
+    let config = {
+      headers: {
+        Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+      },
+    };
+    let authenticated = await axios.get(
+      `${process.env.REACT_APP_BACK_END}/api/auth/authenticated-user-details`,
+      config
+    );
+    sessionStorage.setItem(
+      "user",
+      JSON.stringify(authenticated.data.data.user)
+    );
+    if (res.success) {
+      setTrue();
+      setOpen(false);
+    } else setFalse();
   };
   return (
     <Dialog open={open} onClose={handleClose}>
